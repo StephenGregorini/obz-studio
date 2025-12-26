@@ -24,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       />
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 flex h-full w-72 flex-col border-r bg-card/95 backdrop-blur transition-transform lg:static lg:translate-x-0",
+          "fixed left-0 top-0 z-40 flex h-full w-72 flex-col border-r bg-card/95 backdrop-blur transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:self-start overflow-y-auto",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >

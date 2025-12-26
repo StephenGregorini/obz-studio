@@ -3,11 +3,13 @@ import ActionPlanTable from "@/components/dashboard/ActionPlanTable";
 import PageHeader from "@/components/ui/PageHeader";
 import InfoStat from "@/components/ui/InfoStat";
 import { actionPlanData } from "@/data/action-plan-data";
+import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
 const PlanoAcao: React.FC = () => {
-  const totalAcoes = actionPlanData.length;
-  const atrasadas = actionPlanData.filter((item) => item.status === "Atrasado").length;
-  const impacto = actionPlanData.reduce((acc, item) => acc + item.impactoEstimado, 0);
+  const [actions] = useLocalStorageState("obz.action-plan.v1", actionPlanData);
+  const totalAcoes = actions.length;
+  const atrasadas = actions.filter((item) => item.status === "Atrasado").length;
+  const impacto = actions.reduce((acc, item) => acc + item.impactoEstimado, 0);
 
   return (
     <div className="space-y-6">

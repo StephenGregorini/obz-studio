@@ -5,7 +5,6 @@ import FileImport from "@/components/dashboard/FileImport";
 import { DollarSign, Target, AlertCircle, XCircle, CheckCircle } from "lucide-react";
 import { parseBaselineXlsx } from "@/data/baseline";
 import { useBaseline } from "@/hooks/useBaseline";
-import { Card } from "@/components/ui/card";
 
 function sumScopeByKeywords(dataset: any, keywords: string[]) {
   const rows = dataset?.rows ?? [];

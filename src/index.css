@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -41,6 +43,7 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Space Grotesk", system-ui, sans-serif;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -67,3 +70,6 @@
     background-color: hsl(var(--muted-foreground) / 0.5);
 }
 
+#root {
+  min-height: 100vh;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   BarChart,
   Bar,
@@ -8,41 +8,68 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+} from "recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import ChartTooltip from "@/components/ui/ChartTooltip";
+import { ArrowUpRight } from "lucide-react";
 
-// Data needs to be structured for a waterfall chart
-// 'range' is the floating part of the bar, 'value' is the total height
-const data = [
-    { name: 'Custo Base', value: 2200 },
-    { name: 'Reduções', value: 1800, range: [1800, 2200] },
-    { name: 'Aumentos Evitados', value: 1950, range: [1800, 1950]},
-    { name: 'Resultado Líquido', value: 1950 },
+interface WaterfallChartProps {
+  data?: { name: string; value: number }[];
+  onOpenDetail?: () => void;
+}
+
+const fallbackData = [
+  { name: "Base OBZ", value: 48.2 },
+  { name: "Renegociacoes", value: -2.6 },
+  { name: "Volume evitado", value: -1.8 },
+  { name: "Mix assistencial", value: -1.4 },
+  { name: "Incrementos evitados", value: 0.9 },
+  { name: "Resultado no DRE", value: 42.3 },
 ];
 
-const WaterfallChart: React.FC = () => {
+const WaterfallChart: React.FC<WaterfallChartProps> = ({
+  data = fallbackData,
+  onOpenDetail,
+}) => {
   return (
     <Card className="shadow-sm">
-      <CardHeader>
-        <CardTitle>Resultado OBZ no DRE</CardTitle>
+      <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <CardTitle>Resultado OBZ no DRE</CardTitle>
+          <CardDescription>Componentes de captura e evitados</CardDescription>
+        </div>
+        {onOpenDetail ? (
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1.5 text-xs font-semibold text-muted-foreground"
+            onClick={onOpenDetail}
+          >
+            Ver detalhes
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </button>
+        ) : null}
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={320}>
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip
-              formatter={(value, name, props) => {
-                if (props.payload.range) {
-                    return `${props.payload.range[0]} -> ${props.payload.range[1]}`;
-                }
-                return value;
-              }}
+            <CartesianGrid strokeDasharray="6 6" vertical={false} stroke="hsl(var(--border))" />
+            <XAxis
+              dataKey="name"
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              stroke="hsl(var(--muted-foreground))"
             />
-            <Legend />
-            <Bar dataKey="value" fill="hsl(var(--primary))" name="Valor" />
-            {/* This is a simplified waterfall. A true one would need more complex logic. */}
+            <YAxis
+              tickFormatter={(value) => `${value}M`}
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              stroke="hsl(var(--muted-foreground))"
+            />
+            <Tooltip content={<ChartTooltip valueFormatter={(value) => `${value}M`} />} />
+            <Legend verticalAlign="top" align="right" height={32} />
+            <Bar dataKey="value" fill="hsl(var(--primary))" name="Impacto" radius={[8, 8, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

@@ -8,9 +8,10 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { dreImpactData } from '@/data/phasing-data';
+} from "recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import ChartTooltip from "@/components/ui/ChartTooltip";
+import { dreImpactData } from "@/data/phasing-data";
 
 // Helper to format currency
 const formatCurrency = (value: number) =>
@@ -24,16 +25,31 @@ const DREImpactWaterfallChart: React.FC = () => {
     <Card className="shadow-sm">
       <CardHeader>
         <CardTitle>Impacto no DRE Detalhado</CardTitle>
+        <CardDescription>Componentes de ganho e evitados</CardDescription>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={320}>
           <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis tickFormatter={formatCurrency} />
-            <Tooltip formatter={(value: number) => formatCurrency(value)} />
-            <Legend />
-            <Bar dataKey="value" fill="hsl(var(--primary))" />
+            <CartesianGrid strokeDasharray="6 6" vertical={false} stroke="hsl(var(--border))" />
+            <XAxis
+              dataKey="name"
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              stroke="hsl(var(--muted-foreground))"
+            />
+            <YAxis
+              tickFormatter={(value) => formatCurrency(value)}
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              stroke="hsl(var(--muted-foreground))"
+            />
+            <Tooltip
+              content={<ChartTooltip valueFormatter={(value) => formatCurrency(Number(value))} />}
+            />
+            <Legend verticalAlign="top" align="right" height={32} />
+            <Bar dataKey="value" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

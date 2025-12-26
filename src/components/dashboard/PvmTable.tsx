@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -7,20 +7,22 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { pvmData, type PvmData } from '@/data/pvm-data';
+} from "@/components/ui/table";
+import { pvmData, type PvmData } from "@/data/pvm-data";
 
 const formatCurrency = (value: number) =>
-  new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 
 const PvmTable: React.FC = () => {
   return (
     <Card className="shadow-sm">
       <CardHeader>
         <CardTitle>Tabela Analítica: Preço x Volume x Mix</CardTitle>
+        <CardDescription>Componentes que explicam a variacao do gasto</CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
+        <div className="rounded-2xl border bg-card/80">
+          <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Conta</TableHead>
@@ -41,7 +43,8 @@ const PvmTable: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );

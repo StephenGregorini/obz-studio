@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -7,24 +7,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { actionPlanData, type ActionItem } from '@/data/action-plan-data';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/Badge";
+import { actionPlanData, type ActionItem } from "@/data/action-plan-data";
 
 const formatCurrency = (value: number) =>
-  new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 
 const getStatusBadgeVariant = (status: ActionItem['status']) => {
   switch (status) {
     case 'Concluído':
-      return 'success'; // bg-green-500
-    case 'Em Andamento':
-      return 'secondary';
-    case 'Atrasado':
-      return 'destructive'; // bg-red-500
-    case 'Pendente':
+      return "success"; // bg-green-500
+    case "Em Andamento":
+      return "secondary";
+    case "Atrasado":
+      return "destructive"; // bg-red-500
+    case "Pendente":
     default:
-      return 'outline';
+      return "outline";
   }
 };
 
@@ -33,9 +33,11 @@ const ActionPlanTable: React.FC = () => {
     <Card className="shadow-sm">
       <CardHeader>
         <CardTitle>Plano de Ação Estruturado</CardTitle>
+        <CardDescription>Macro etapas, responsáveis e impacto estimado</CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
+        <div className="rounded-2xl border bg-card/80">
+          <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Ação</TableHead>
@@ -55,7 +57,7 @@ const ActionPlanTable: React.FC = () => {
                 <TableCell>{item.responsavel}</TableCell>
                 <TableCell>{item.prazo}</TableCell>
                 <TableCell>
-                  <Badge variant={getStatusBadgeVariant(item.status)} className={item.status === 'Concluído' ? 'bg-green-500 text-white' : item.status === 'Atrasado' ? 'bg-red-500 text-white' : ''}>
+                  <Badge variant={getStatusBadgeVariant(item.status)}>
                     {item.status}
                   </Badge>
                 </TableCell>
@@ -67,7 +69,8 @@ const ActionPlanTable: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );

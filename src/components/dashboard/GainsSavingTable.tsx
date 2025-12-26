@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -7,23 +7,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { gainsSavingData, type GainSaving, type TipoGanho } from '@/data/gains-saving-data';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/Badge";
+import { gainsSavingData, type GainSaving, type TipoGanho } from "@/data/gains-saving-data";
 
 const formatCurrency = (value: number) =>
-  new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 
 const getGainTypeBadgeVariant = (type: TipoGanho) => {
   switch (type) {
     case 'Redução de custo':
-      return 'destructive';
-    case 'Evitar aumento':
-      return 'secondary';
-    case 'Eficiência operacional':
-      return 'success';
+      return "destructive";
+    case "Evitar aumento":
+      return "secondary";
+    case "Eficiência operacional":
+      return "success";
     default:
-      return 'outline';
+      return "outline";
   }
 };
 
@@ -32,9 +32,11 @@ const GainsSavingTable: React.FC = () => {
     <Card className="shadow-sm">
       <CardHeader>
         <CardTitle>Gestão de Ganhos e Saving</CardTitle>
+        <CardDescription>Somente ganhos com evidência e reflexo no real</CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
+        <div className="rounded-2xl border bg-card/80">
+          <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Ação</TableHead>
@@ -50,7 +52,7 @@ const GainsSavingTable: React.FC = () => {
               <TableRow key={item.id}>
                 <TableCell className="font-medium">{item.acao}</TableCell>
                 <TableCell>
-                  <Badge variant={getGainTypeBadgeVariant(item.tipoGanho)} className={item.tipoGanho === 'Eficiência operacional' ? 'bg-green-500 text-white' : item.tipoGanho === 'Redução de custo' ? 'bg-red-500 text-white' : ''}>
+                  <Badge variant={getGainTypeBadgeVariant(item.tipoGanho)}>
                     {item.tipoGanho}
                   </Badge>
                 </TableCell>
@@ -61,7 +63,8 @@ const GainsSavingTable: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
-        </Table>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );

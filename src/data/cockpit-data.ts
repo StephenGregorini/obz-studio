@@ -2,6 +2,7 @@ export const cockpitSummary = {
   cycle: "Ciclo OBZ 2025",
   updatedAt: "Atualizado ha 3 min",
   period: "Jan - Jun 2025",
+  network: "Rede Atlas (3 hospitais)",
 };
 
 export const cockpitKpis = [
@@ -131,5 +132,75 @@ export const agentInsights = [
       "Revisar mix assistencial e preco medio por procedimento.",
       "Validar evidencias antes do fechamento mensal.",
     ],
+  },
+];
+
+export const hospitalSnapshots = [
+  {
+    id: "atlas-mooca",
+    name: "Hospital Atlas Mooca",
+    city: "Sao Paulo",
+    profile: "Alta complexidade",
+    beds: 220,
+    budget: "R$ 19,6M",
+    real: "R$ 20,9M",
+    delta: "+6,5%",
+    capture: "R$ 2,3M",
+    status: "attention",
+  },
+  {
+    id: "atlas-belvedere",
+    name: "Hospital Atlas Belvedere",
+    city: "Belo Horizonte",
+    profile: "Media complexidade",
+    beds: 180,
+    budget: "R$ 17,8M",
+    real: "R$ 18,3M",
+    delta: "+3,1%",
+    capture: "R$ 2,1M",
+    status: "ok",
+  },
+  {
+    id: "atlas-recife",
+    name: "Hospital Atlas Recife",
+    city: "Recife",
+    profile: "Especializado",
+    beds: 200,
+    budget: "R$ 14,6M",
+    real: "R$ 14,3M",
+    delta: "-1,8%",
+    capture: "R$ 2,0M",
+    status: "ok",
+  },
+];
+
+export const hospitalComparative = [
+  {
+    metric: "Gasto total vs OBZ",
+    mooca: "+6,5%",
+    belvedere: "+3,1%",
+    recife: "-1,8%",
+    destaque: "Recife",
+  },
+  {
+    metric: "Custo assistencial / leito",
+    mooca: "R$ 118k",
+    belvedere: "R$ 104k",
+    recife: "R$ 96k",
+    destaque: "Recife",
+  },
+  {
+    metric: "Saving capturado (semestre)",
+    mooca: "R$ 2,3M",
+    belvedere: "R$ 2,1M",
+    recife: "R$ 2,0M",
+    destaque: "Mooca",
+  },
+  {
+    metric: "Atrasos de contratos",
+    mooca: "6",
+    belvedere: "4",
+    recife: "2",
+    destaque: "Recife",
   },
 ];

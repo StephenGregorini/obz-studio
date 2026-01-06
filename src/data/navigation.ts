@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   LineChart,
   ListChecks,
+  Network,
   ShieldCheck,
   Target,
   Workflow,
@@ -32,6 +33,13 @@ export const navItems: NavItem[] = [
     path: "/indicadores",
     description: "Arvore de contas, metas e responsaveis",
     icon: Workflow,
+  },
+  {
+    id: "arvore-entidades",
+    label: "Arvore de Entidades",
+    path: "/entidades",
+    description: "Hospitais, diretorias e centros de custo",
+    icon: Network,
   },
   {
     id: "analise-desvio",

@@ -11,6 +11,8 @@ import {
   cockpitKpis,
   cockpitSummary,
   dreWaterfallData,
+  hospitalComparative,
+  hospitalSnapshots,
   monthlyTrendData,
   typicalIndicators,
 } from "@/data/cockpit-data";
@@ -79,6 +81,9 @@ const CockpitExecutivo: React.FC = () => {
         <div className="flex flex-wrap items-center gap-3">
           <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs font-semibold">
             {cockpitSummary.period}
+          </Badge>
+          <Badge variant="outline" className="rounded-full px-3 py-1 text-xs font-semibold">
+            {cockpitSummary.network}
           </Badge>
           <Badge variant="outline" className="rounded-full px-3 py-1 text-xs font-semibold">
             {cockpitSummary.updatedAt}
@@ -183,6 +188,107 @@ const CockpitExecutivo: React.FC = () => {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Rede multi-hospitais
+            </p>
+            <h3 className="text-lg font-semibold text-foreground">Comparativo entre unidades</h3>
+            <p className="text-sm text-muted-foreground">
+              Benchmarks internos para acompanhar desvio, captura e custo assistencial.
+            </p>
+          </div>
+          <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs font-semibold">
+            Exemplo hipotetico
+          </Badge>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {hospitalSnapshots.map((hospital) => (
+            <Card key={hospital.id} className="relative overflow-hidden">
+              <CardHeader>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <CardTitle className="text-lg">{hospital.name}</CardTitle>
+                    <p className="text-xs text-muted-foreground">
+                      {hospital.city} • {hospital.profile}
+                    </p>
+                  </div>
+                  <Badge
+                    variant={hospital.status === "attention" ? "warning" : "success"}
+                    className="text-xs"
+                  >
+                    {hospital.status === "attention" ? "Sob observacao" : "Estavel"}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Leitos</span>
+                  <span className="font-semibold">{hospital.beds}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">OBZ planejado</span>
+                  <span className="font-semibold">{hospital.budget}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Real acumulado</span>
+                  <span className="font-semibold">{hospital.real}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Desvio</span>
+                  <Badge variant={hospital.delta.startsWith("-") ? "success" : "warning"}>
+                    {hospital.delta}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Saving capturado</span>
+                  <span className="font-semibold">{hospital.capture}</span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Comparativo por indicador</CardTitle>
+            <p className="text-xs text-muted-foreground">
+              Mooca x Belvedere x Recife com destaque por melhor performance.
+            </p>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Indicador</TableHead>
+                  <TableHead>Mooca</TableHead>
+                  <TableHead>Belvedere</TableHead>
+                  <TableHead>Recife</TableHead>
+                  <TableHead>Destaque</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {hospitalComparative.map((row) => (
+                  <TableRow key={row.metric}>
+                    <TableCell className="font-semibold">{row.metric}</TableCell>
+                    <TableCell>{row.mooca}</TableCell>
+                    <TableCell>{row.belvedere}</TableCell>
+                    <TableCell>{row.recife}</TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="text-xs">
+                        {row.destaque}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
       </section>
 
       <DetailDrawer
